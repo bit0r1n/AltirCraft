@@ -1,0 +1,104 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <title>Altir Craft</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/resources/css/style.css}">
+    <link rel="stylesheet" th:href="@{/resources/css/libs/pannellum.css}"/>
+    <link rel="icon" th:href="@{(${server.icon} ?: '/resources/images/no-icon.png')}">
+</head>
+
+<body>
+    <main>
+        <div id="bg"></div>
+
+        <section id="info" class="loading">
+            <div id="title">
+                <img th:src="@{/resources/images/logo.png}" id="logo">
+                <div id="splash-wrapper">
+                    <p id="splash"></p>
+                </div>
+            </div>
+
+            <ul id="buttons">
+                <li class="button" onclick="playClickSound();"><div class="label">Map</div></li>
+
+                <li th:if="${server.isOnline and server.players != null}" class="button">
+                    <div class="label" onclick="playClickSound(); showPlayers();">Players</div>
+
+                    <ul id="players">
+                        <th:block th:each="player : ${server.players}">
+                            <li class="player">
+                                <img class="avatar" th:src="|https://minotar.net/avatar/${player}|">
+                                <span th:text="${player}"></span>
+                            </li>
+                        </th:block>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+    </main>
+
+    <script th:src="@{/resources/js/libs/pannellum.js}"></script>
+
+    <script th:inline="javascript">
+        // ==================================
+
+        const splashes = [
+            "server hosted in donetsk, ukraine",
+            "100% bebra",
+            "rule no. 1 no anime",
+            "sexcraft edition with all addons",
+            "powered by unreal engine",
+            "no sex"
+        ];
+
+        const splash = splashes[Math.floor(Math.random() * splashes.length)];
+        const element = document.getElementById("splash");
+
+        const fontSize = (35 - Math.min(splash.length / 1.5, 30));
+
+        element.style.fontSize = fontSize + "px";
+        element.innerHTML = splash;
+
+        // ==================================
+
+        const click = new Audio([[@{/resources/sounds/click.ogg}]]);
+        click.volume = 0.3;
+
+        function playClickSound() {
+            click.play();
+        }
+
+        // ==================================
+
+        const players = document.getElementById("players");
+
+        function showPlayers() {
+            players.style.display = players.style.display === "none" || !players.style.display ? "block" : "none";
+        }
+
+        // ==================================
+
+        const viewer = pannellum.viewer("bg", {
+            "type": "equirectangular",
+            "panorama": [[@{/resources/images/panorama.png}]],
+            "autoLoad": true,
+            "showControls": false,
+            "autoRotate": 3,
+            "hfov": 110
+        });
+
+        viewer.on("load", () => document.getElementById("info").className = "loaded");
+
+        document.getElementsByClassName("pnlm-about-msg")[0].remove();
+        document.getElementsByClassName("pnlm-lbox")[0].remove();
+        document.getElementsByClassName("pnlm-lbar")[0].remove();
+        document.getElementsByClassName("pnlm-lmsg")[0].remove();
+
+        // ==================================
+    </script>
+</body>
+
+</html>

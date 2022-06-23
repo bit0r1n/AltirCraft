@@ -1,0 +1,125 @@
+@font-face {
+    font-family: Minecraftia;
+    src: url("../fonts/Minecraftia.ttf");
+}
+
+@keyframes splash {
+    0% {
+        transform: scale(0.875) rotate(-20deg);
+    }
+    50% {
+        transform: scale(1) rotate(-20deg);
+    }
+    100% {
+        transform: scale(0.875) rotate(-20deg);
+    }
+}
+
+body {
+    font-family: Minecraftia;
+    color: #ebebeb;
+    text-align: center;
+
+    user-select: none;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#bg {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+
+    min-width: 100%;
+    min-height: 100%;
+
+    z-index: -1;
+}
+
+#info {
+    transition: all 1.5s ease-in-out;
+}
+.loading {
+    visibility: hidden;
+    opacity: 0;
+}
+.loaded {
+    visibility: visible;
+    opacity: 1;
+}
+
+#title {
+    position: relative;
+    margin: 0 auto;
+    width: 650px;
+    height: 150px;
+}
+#splash-wrapper {
+    margin-top: -7em;
+    margin-left: 23em;
+    height: 40px;
+    width: 300px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    animation: splash 0.5s infinite;
+}
+#splash {
+    color: #ffff00;
+    text-shadow: 1px 1px 0px #000;
+}
+
+#buttons {
+    margin-top: 5em;
+}
+.button {
+    height: 40px;
+    width: 660px;
+    line-height: 35px;
+    margin: 1em auto;
+
+    background: url("../images/bgbtn.png") center / cover;
+    image-rendering: pixelated;
+    box-shadow: inset -2px -4px #0006, inset 2px 2px #fff7;
+    box-sizing: border-box;
+    border: 2px solid #000;
+}
+.label {
+    color: #DDD;
+    text-shadow: 2px 2px #000a;
+
+    cursor: pointer;
+}
+.label:hover {
+    background-color: rgba(100, 100, 255, .45);
+	text-shadow: 2px 2px #202013cc;
+	color: #ffffa0;
+}
+#players {
+    width: 300px;
+    margin: 0.5em auto 0;
+
+    border-image-slice:15 15 15 15 fill;
+    border-image-width:20px 20px 20px 20px;
+    border-image-outset:0px 0px 0px 0px;
+    border-image-repeat:stretch stretch;
+    border-image-source:url("../images/bg.png");
+    border-style:solid;
+
+    display: none;
+}
+.player {
+    color: #000;
+
+    height: 25px;
+}
+.avatar {
+    height: 16px;
+    width: 16px;
+    margin-bottom: 9px;
+}
