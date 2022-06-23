@@ -35,14 +35,10 @@
 
     <script src="./resources/js/libs/pannellum.js"></script>
 
-    <script>
+    <script type="module">
         // ==================================
 
-        const request = new XMLHttpRequest();
-        request.open("GET", "https://api.mcsrvstat.us/2/bebra.bitor.in", false);
-        request.send(null);
-
-        const server = JSON.parse(request.response);
+        const server = await (await fetch("https://api.mcsrvstat.us/2/bebra.bitor.in")).json();
 
         // ==================================
 
