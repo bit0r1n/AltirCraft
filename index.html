@@ -22,12 +22,17 @@
             </div>
 
             <ul id="buttons">
-                <li class="button" onclick="playClickSound(); location.href = 'http:/\/map.bebra.bitor.in'">
-                    <div class="label">Map</div>
+                <li class="button a" id="map">
+                    <div class="label">
+                        <span>Map</span>
+                    </div>
                 </li>
-                <li class="button">
-                    <div class="label" onclick="playClickSound(); showPlayers();">Players</div>
-                    <ul id="players"></ul>
+
+                <li class="button" id="players">
+                    <div class="label">
+                        <span>Players</span>
+                    </div>
+                    <ul id="list"></ul>
                 </li>
             </ul>
         </section>
@@ -68,30 +73,34 @@
         const click = new Audio("./resources/sounds/click.ogg");
         click.volume = 0.3;
 
-        function playClickSound() {
-            click.play();
-        }
+        Array.from(document.getElementsByClassName("button"))
+            .forEach(button => button.addEventListener("click", () => click.play()));
+
+        // ==================================
+
+        document.getElementById("map").addEventListener("click", () => location.href = "http://map.bebra.bitor.in");
 
         // ==================================
 
         const players = document.getElementById("players");
-
-        function showPlayers() {
-            players.style.display = players.style.display === "none" || !players.style.display ? "block" : "none";
-        }
+        const ulList = document.getElementById("list");
 
         const list = server.players?.list;
 
         if(list) {
             for(const player of list)
-                players.innerHTML += `
+                ulList.innerHTML += `
                     <li class="player">
                         <img src="https://minotar.net/avatar/${player}" class="avatar">
                         ${player}
                     </li>
                 `;
+
+            players.addEventListener("click", () => ulList.style.display = !ulList.style.display || ulList.style.display === "none" ? "block" : "none");
+
+            players.className += " a";
         } else
-            players.parentElement.style.display = "none";
+            players.className += " na";
 
         // ==================================
 
