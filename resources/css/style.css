@@ -88,18 +88,18 @@ ul {
 }
 
 .na {
-    background-image: url("../images/not-available-button.png");
+    background-image: url("../images/buttons/inactive.png");
 
     color: #a0a0a0;
 }
 
 .a {
-    background-image: url("../images/button.png");
+    background-image: url("../images/buttons/default.png");
 
     color: #DDD;
 }
 .a:hover {
-    background-image: url("../images/active-button.png");
+    background-image: url("../images/buttons/active.png");
 }
 
 .label {
@@ -124,7 +124,7 @@ ul {
     border-image-width: 20px 20px 20px 20px;
     border-image-outset: 0px 0px 0px 0px;
     border-image-repeat: stretch stretch;
-    border-image-source: url("../images/bg.png");
+    border-image-source: url("../images/background/text.png");
     border-style: solid;
 
     text-align: center;

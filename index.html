@@ -15,7 +15,7 @@
 
         <section id="info" class="loading">
             <div id="title">
-                <img src="./resources/images/logo.png" id="logo">
+                <img src="./resources/images/icons/logo.png" id="logo">
                 <div id="splash-wrapper">
                     <p id="splash"></p>
                 </div>
@@ -47,7 +47,7 @@
 
         // ==================================
 
-        document.getElementById("icon").setAttribute("href", server.favicon_base64 ?? "./resources/images/no-icon.png");
+        document.getElementById("icon").setAttribute("href", server.favicon_base64 ?? "./resources/images/icons/no-icon.png");
 
         // ==================================
 
@@ -106,7 +106,7 @@
 
         const viewer = pannellum.viewer("bg", {
             "type": "equirectangular",
-            "panorama": "./resources/images/panorama.png",
+            "panorama": "./resources/images/background/panorama.png",
             "autoLoad": true,
             "showControls": false,
             "autoRotate": 3,
