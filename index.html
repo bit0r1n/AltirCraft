@@ -3,7 +3,7 @@
 
 <head>
     <title>Altir Craft</title>
-    <meta charset="UTF-8">
+
     <link rel="stylesheet" href="./resources/css/style.css">
     <link rel="stylesheet" href="./resources/css/libs/pannellum.css"/>
     <link rel="icon" id="icon">
@@ -43,11 +43,11 @@
     <script type="module">
         // ==================================
 
-        const server = await (await fetch("https://api.mcsrvstat.us/2/bebra.bitor.in")).json();
+        const server = await (await fetch("https://eu.mc-api.net/v3/server/ping/bebra.bitor.in")).json();
 
         // ==================================
 
-        document.getElementById("icon").setAttribute("href", server.icon ?? "./resources/images/no-icon.png");
+        document.getElementById("icon").setAttribute("href", server.favicon_base64 ?? "./resources/images/no-icon.png");
 
         // ==================================
 
@@ -85,14 +85,14 @@
         const players = document.getElementById("players");
         const ulList = document.getElementById("list");
 
-        const list = server.players?.list;
+        console.log(server.players);
 
-        if(list) {
-            for(const player of list)
+        if(server.players?.online) {
+            for(const { name } of server.players.sample)
                 ulList.innerHTML += `
                     <li class="player">
-                        <img src="https://minotar.net/avatar/${player}" class="avatar">
-                        ${player}
+                        <img src="https://minotar.net/avatar/${name}" class="avatar">
+                        ${name}
                     </li>
                 `;
 
