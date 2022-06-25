@@ -174,7 +174,7 @@
 }
 .pnlm-load-box p {
     margin: 20px 0;
-    background: url("../../images/text-fill.png");
+    background: url("../../images/background/fill.png");
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;

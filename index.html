@@ -3,7 +3,7 @@
 
 <head>
     <title>Altir Craft</title>
-    <meta charset="UTF-8">
+
     <link rel="stylesheet" href="./resources/css/style.css">
     <link rel="stylesheet" href="./resources/css/libs/pannellum.css"/>
     <link rel="icon" id="icon">
@@ -15,19 +15,24 @@
 
         <section id="info" class="loading">
             <div id="title">
-                <img src="./resources/images/logo.png" id="logo">
+                <img src="./resources/images/icons/logo.png" id="logo">
                 <div id="splash-wrapper">
                     <p id="splash"></p>
                 </div>
             </div>
 
             <ul id="buttons">
-                <li class="button" onclick="playClickSound(); location.href = 'http:/\/map.bebra.bitor.in'">
-                    <div class="label">Map</div>
+                <li class="button a" id="map">
+                    <div class="label">
+                        <span>Map</span>
+                    </div>
                 </li>
-                <li class="button">
-                    <div class="label" onclick="playClickSound(); showPlayers();">Players</div>
-                    <ul id="players"></ul>
+
+                <li class="button" id="players">
+                    <div class="label">
+                        <span>Players</span>
+                    </div>
+                    <ul id="list"></ul>
                 </li>
             </ul>
         </section>
@@ -38,16 +43,16 @@
     <script type="module">
         // ==================================
 
-        const server = await (await fetch("https://api.mcsrvstat.us/2/bebra.bitor.in")).json();
+        const server = await (await fetch("https://eu.mc-api.net/v3/server/ping/bebra.bitor.in")).json();
 
         // ==================================
 
-        document.getElementById("icon").setAttribute("href", server.icon ?? "./resources/images/no-icon.png");
+        document.getElementById("icon").setAttribute("href", server.favicon_base64 ?? "./resources/images/icons/no-icon.png");
 
         // ==================================
 
         const splashes = [
-            "server hosted in donetsk, ukraine",
+            "server hosted in podolsk",
             "100% bebra",
             "rule no. 1 no anime",
             "sexcraft edition with all addons",
@@ -68,36 +73,40 @@
         const click = new Audio("./resources/sounds/click.ogg");
         click.volume = 0.3;
 
-        function playClickSound() {
-            click.play();
-        }
+        Array.from(document.getElementsByClassName("button"))
+            .forEach(button => button.addEventListener("click", () => click.play()));
+
+        // ==================================
+
+        document.getElementById("map").addEventListener("click", () => location.href = "http://map.bebra.bitor.in");
 
         // ==================================
 
         const players = document.getElementById("players");
+        const ulList = document.getElementById("list");
 
-        function showPlayers() {
-            players.style.display = players.style.display === "none" || !players.style.display ? "block" : "none";
-        }
+        console.log(server.players);
 
-        const list = server.players?.list;
-
-        if(list) {
-            for(const player of list)
-                players.innerHTML += `
+        if(server.players?.online) {
+            for(const { name } of server.players.sample)
+                ulList.innerHTML += `
                     <li class="player">
-                        <img src="https://minotar.net/avatar/${player}" class="avatar">
-                        ${player}
+                        <img src="https://minotar.net/avatar/${name}" class="avatar">
+                        ${name}
                     </li>
                 `;
+
+            players.addEventListener("click", () => ulList.style.display = !ulList.style.display || ulList.style.display === "none" ? "block" : "none");
+
+            players.className += " a";
         } else
-            players.parentElement.style.display = "none";
+            players.className += " na";
 
         // ==================================
 
         const viewer = pannellum.viewer("bg", {
             "type": "equirectangular",
-            "panorama": "./resources/images/panorama.png",
+            "panorama": "./resources/images/background/panorama.png",
             "autoLoad": true,
             "showControls": false,
             "autoRotate": 3,
